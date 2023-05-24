@@ -13,24 +13,28 @@
     <div class="container">
         <div class="row justify-content-center">
 
-            <form class="col-10 card p-4" method="POST" action="procesos.php" enctype="multipart/form-data">
+            <form class="col-11 card p-4" method="POST" action="procesos.php" enctype="multipart/form-data">
                 <div class="row justify-content-evenly mb-3">
                     <p class="form-label fw-bolder ">Seleccione una opción</p>
-                    <div class="col-3">
+                    <div class="col-2">
                         <input type="radio" class="btn-check" name="radio-option" id="opcion1" autocomplete="off" value="elem-faltan" required>
                         <label class="btn btn-outline-dark w-100" for="opcion1">Elementos Faltantes</label>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <input type="radio" class="btn-check" name="radio-option" id="opcion2" autocomplete="off" value="arch-faltan">
                         <label class="btn btn-outline-dark w-100" for="opcion2">Archivos Faltantes</label>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <input type="radio" class="btn-check" name="radio-option" id="opcion3" autocomplete="off" value="duplicados">
                         <label class="btn btn-outline-dark w-100" for="opcion3">Duplicados</label>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <input type="radio" class="btn-check" name="radio-option" id="opcion4" autocomplete="off" value="contar">
                         <label class="btn btn-outline-dark w-100" for="opcion4">Contar</label>
+                    </div>
+                    <div class="col-2">
+                        <input type="radio" class="btn-check" name="radio-option" id="opcion5" autocomplete="off" value="gen-json">
+                        <label class="btn btn-outline-dark w-100" for="opcion5">Generar Json</label>
                     </div>
                 </div>
 
@@ -39,13 +43,13 @@
                 </div>
 
                 <div class="row justify-content-evenly">
-                    <div class="col-5">
+                    <div class="col-5" id="div-json1" hidden>
                         <label class="form-label fw-bolder ">Json 1</label><!-- for="json1" -->
-                        <input class="form-control mb-3" type="file" name="json1" id="json1" accept=".json, .js" disabled required>
+                        <input class="form-control mb-3" type="file" name="json1" id="json1" accept=".json, .js">
                     </div>
-                    <div class="col-5">
-                        <label class="form-label fw-bolder" id="label2">Json 2</label><!-- for="json2" -->
-                        <input class="form-control mb-3" type="file" name="json2" id="json2" accept=".json, .js" disabled required>
+                    <div class="col-5" id="div-json2" hidden>
+                        <label class="form-label fw-bolder">Json 2</label><!-- for="json2" -->
+                        <input class="form-control mb-3" type="file" name="json2" id="json2" accept=".json, .js">
                     </div>
                 </div>
 
@@ -67,8 +71,19 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
+
+                <div class="row justify-content-evenly mt-3">
+                    <div class="col-9 mt-3" id="lista-archivos" hidden>
+                        <div class="input-group">
+                            <div class="form-floating">
+                                <textarea class="form-control" name="list-arch" id="list-arch" style="height: 300px;"></textarea>
+                                <label for="list-arch">Lista de Archivos</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 
                 
                 <div class="row justify-content-evenly mt-3">
@@ -84,77 +99,88 @@
 <script>
     let opcion = document.getElementsByName("radio-option");
     let json1 = document.getElementById("json1");
+    let div_json1 = document.getElementById("div-json1");
     let json2 = document.getElementById("json2");
-    let label2 = document.getElementById("label2");
+    let div_json2 = document.getElementById("div-json2");
     let atributo1 = document.getElementById("atributo1");
     let atrib1 = document.getElementById("atrib1");
     let atributo2 = document.getElementById("atributo2");
     let atrib2 = document.getElementById("atrib2");
     let instrucciones = document.getElementById("instrucciones");
+    let lista_archivos = document.getElementById("lista-archivos");
+    let list_arch = document.getElementById("list-arch");
+
     
         opcion[0].addEventListener("change",(e) => {
-            json1.removeAttribute("disabled");
+            div_json1.removeAttribute("hidden");
+            json1.setAttribute("required","true");
 
-            json2.removeAttribute("disabled");
-            json2.removeAttribute("hidden");
-            
-            label2.removeAttribute("hidden");
+            div_json2.removeAttribute("hidden");
+            json2.setAttribute("required","true");
 
             atributo1.removeAttribute("hidden");
             atrib1.setAttribute("required","true");
 
-            atrib2.removeAttribute("required");
-            atributo2.setAttribute("hidden","true");
+            atributo2.removeAttribute("hidden");
+            atrib2.setAttribute("required","true");
+
+            list_arch.removeAttribute("required");
+            lista_archivos.setAttribute("hidden","true");
 
             instrucciones.removeAttribute("hidden");
             instrucciones.innerHTML = "Función para encontrar elementos faltantes entre 2 objetos json<br>"+
                                         "En Json 1 ingresar el objeto con la totalidad de elementos<br>"+
                                         "En Json 2 ingresar el objeto con los elementos que se van a excluir porque ya existen<br>"+
-                                        "En Atributo A ingresar el nombre del atributo que se usara de referencia para la busqueda<br>"+
+                                        "En Atributo A y B ingresar los nombres de los atributos que se usaran de referencia correspondientemente para la busqueda<br>"+
                                         "El resultado sera un objeto Json con los elementos que faltan en Json2 y el contador del total de elementos faltantes.";
 
-            console.log(json1);
-            console.log(json2);
+            // console.log(lista_archivos);
+            // console.log(json2);
         });
 
         opcion[1].addEventListener("change",(e) => {
-            json1.removeAttribute("disabled");
+            div_json1.removeAttribute("hidden");
+            json1.setAttribute("required","true");
 
-            json2.removeAttribute("disabled");
-            json2.removeAttribute("hidden");
-            
-            label2.removeAttribute("hidden");
+            json2.removeAttribute("required");
+            div_json2.setAttribute("hidden","true");
 
             atributo1.removeAttribute("hidden");
             atrib1.setAttribute("required","true");
             
-            atributo2.removeAttribute("hidden");
-            atrib2.setAttribute("required","true");
+            atrib2.removeAttribute("required");
+            atributo2.setAttribute("hidden","true");
+
+            lista_archivos.removeAttribute("hidden");
+            list_arch.setAttribute("required","true");
 
             instrucciones.removeAttribute("hidden");
             instrucciones.innerHTML = "Función para encontrar archivos faltantes del objeto json<br>"+
                                         "En Json 1 ingresar el objeto a tratar<br>"+
-                                        "En Json 2 ingresar la lista de archivos como objeto json<br>"+
-                                        "En Atributo A y B ingresar el nombre del atributo que se usara de referencia respectivamente para la busqueda <br>"+
+                                        "En Atributo A ingresar el nombre del atributo que se usara de referencia para la busqueda<br>"+
+                                        "En el cuadro de texto escribir la lista de archivos<br>"+
+                                        "Comando para listar los archivos de una carpeta:  <code>dir /b > lista.txt</code><br>"+
                                         "El resultado sera un Json con los registros que les falta su archivo, asi como un Json con los archivos que no tienen un registro y el contador del total de elementos faltantes.";
 
-            console.log(json1);
-            console.log(json2);
+            // console.log(lista_archivos);
+            // console.log(json2);
         });
 
         opcion[2].addEventListener("change",(e) => {
-            json1.removeAttribute("disabled");
+            div_json1.removeAttribute("hidden");
+            json1.setAttribute("required","true");
 
-            json2.setAttribute("disabled","true");
-            json2.setAttribute("hidden","true");
-            
-            label2.setAttribute("hidden","true");
+            json2.removeAttribute("required");
+            div_json2.setAttribute("hidden","true");
 
             atributo1.removeAttribute("hidden");
             atrib1.setAttribute("required","true");
 
             atributo2.removeAttribute("hidden");
             atrib2.setAttribute("required","true");
+
+            list_arch.removeAttribute("required");
+            lista_archivos.setAttribute("hidden","true");
 
             instrucciones.removeAttribute("hidden");
             instrucciones.innerHTML = "Función para eliminar elementos duplicados<br>"+
@@ -162,17 +188,16 @@
                                         "En Atributo A y B ingresar los nombres de los atributos que se usaran de referencia para la busqueda<br>"+
                                         "El resultado sera un nuevo objeto Json sin los elementos repetidos.";
 
-            console.log(json1);
-            console.log(json2);
+            // console.log(json1);
+            // console.log(json2);
         });
 
         opcion[3].addEventListener("change",(e) => {
-            json1.removeAttribute("disabled");
+            div_json1.removeAttribute("hidden");
+            json1.setAttribute("required","true");
 
-            json2.setAttribute("disabled","true");
-            json2.setAttribute("hidden","true");
-
-            label2.setAttribute("hidden","true");
+            json2.removeAttribute("required");
+            div_json2.setAttribute("hidden","true");
 
             atrib1.removeAttribute("required");
             atributo1.setAttribute("hidden","true");
@@ -180,13 +205,41 @@
             atrib2.removeAttribute("required");
             atributo2.setAttribute("hidden","true");
 
+            list_arch.removeAttribute("required");
+            lista_archivos.setAttribute("hidden","true");
+
             instrucciones.removeAttribute("hidden");
             instrucciones.innerHTML = "Función para contar elementos de un Json<br>"+
                                         "En Json 1 ingresar el objeto json a tratar<br>"+
                                         "El resultado sera el mismo objeto Json y un contador de los elementos que contiene.";
             
-            console.log(json1);
-            console.log(json2);
+            // console.log(json1);
+            // console.log(json2);
+        });
+
+        opcion[4].addEventListener("change",(e) => {
+            json1.removeAttribute("required");
+            div_json1.setAttribute("hidden","true");
+
+            json2.removeAttribute("required");
+            div_json2.setAttribute("hidden","true");
+
+            atrib1.removeAttribute("required");
+            atributo1.setAttribute("hidden","true");
+
+            atrib2.removeAttribute("required");
+            atributo2.setAttribute("hidden","true");
+
+            lista_archivos.removeAttribute("hidden");
+            list_arch.setAttribute("required","true");
+
+            instrucciones.removeAttribute("hidden");
+            instrucciones.innerHTML = "Función para generar un Json a partir de una lista de archivos<br>"+
+                                        "En el cuadro de texto escribir la lista de archivos<br>"+
+                                        "El resultado sera el Json de la lista ingresada.";
+            
+            // console.log(json1);
+            // console.log(json2);
         });
 </script>
 

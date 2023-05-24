@@ -3,3 +3,4 @@
 .btn-primary { background-color: #235B4E; }
 .btn-secondary { background-color: #9F2241; }
 /* .form-control { background-color: #98989A; color: #FFFFFF; } */
+.form-floating label { margin-top: 10px; margin-left: 2px; padding-top: 0px; height: 22px; background-color: #fff; right: 0; left: unset; }
