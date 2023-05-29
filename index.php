@@ -9,52 +9,63 @@
     <?php require_once "scripts.php"; ?>
 </head>
 
-<body class="main d-flex align-items-center">
+<body class="main d-flex align-items-xxl-center overflow-x-hidden">
     <div class="container">
         <div class="row justify-content-center">
 
-            <form class="col-11 card p-4" method="POST" action="procesos.php" enctype="multipart/form-data">
-                <div class="row justify-content-evenly mb-3">
-                    <p class="form-label fw-bolder ">Seleccione una opción</p>
-                    <div class="col-2">
+            <form class="col-12 col-lg-11 card p-2 my-2" method="POST" action="procesos.php" enctype="multipart/form-data">
+                <div class="row justify-content-evenly mb-3 overflow-y-auto">
+                    <div class="col-7 col-lg-10 d-flex align-items-end">
+                        <p class="form-label fw-bolder ">Seleccione una opción</p>
+                    </div>
+                    <div class="col-5 col-lg-2 mb-3">
+                        <input type="checkbox" class="btn-check" name="backup-check" id="backup-check" value="chi" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary w-100" for="backup-check">Backup</label>
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-1">
                         <input type="radio" class="btn-check" name="radio-option" id="opcion1" autocomplete="off" value="elem-faltan" required>
-                        <label class="btn btn-outline-dark w-100" for="opcion1">Elementos Faltantes</label>
+                        <label class="btn btn-outline-dark w-100" for="opcion1">Elem. Faltantes</label>
                     </div>
-                    <div class="col-2">
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-1">
                         <input type="radio" class="btn-check" name="radio-option" id="opcion2" autocomplete="off" value="arch-faltan">
-                        <label class="btn btn-outline-dark w-100" for="opcion2">Archivos Faltantes</label>
+                        <label class="btn btn-outline-dark w-100" for="opcion2">Arch. Faltantes</label>
                     </div>
-                    <div class="col-2">
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-1">
                         <input type="radio" class="btn-check" name="radio-option" id="opcion3" autocomplete="off" value="duplicados">
                         <label class="btn btn-outline-dark w-100" for="opcion3">Duplicados</label>
                     </div>
-                    <div class="col-2">
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-1">
                         <input type="radio" class="btn-check" name="radio-option" id="opcion4" autocomplete="off" value="contar">
                         <label class="btn btn-outline-dark w-100" for="opcion4">Contar</label>
                     </div>
-                    <div class="col-2">
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-1">
                         <input type="radio" class="btn-check" name="radio-option" id="opcion5" autocomplete="off" value="gen-json">
                         <label class="btn btn-outline-dark w-100" for="opcion5">Generar Json</label>
                     </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-1" hidden>
+                        <input type="radio" class="btn-check" name="radio-option" id="opcion6" autocomplete="off" value="txt-to-json">
+                        <label class="btn btn-outline-dark w-100" for="opcion6">TXT to JSON</label>
+                    </div>
                 </div>
 
                 <div class="row justify-content-evenly">
-                    <p class="col-11 fw-bold fs-6" id="instrucciones" hidden>Texto Random</p>
+                    <p class="col-lg-11 fw-bold fs-6" id="instrucciones" hidden>Texto Random</p>
                 </div>
 
                 <div class="row justify-content-evenly">
-                    <div class="col-5" id="div-json1" hidden>
+                    <div class="col-11 col-md-6 col-lg-5" id="div-json1" hidden>
                         <label class="form-label fw-bolder ">Json 1</label><!-- for="json1" -->
                         <input class="form-control mb-3" type="file" name="json1" id="json1" accept=".json, .js">
                     </div>
-                    <div class="col-5" id="div-json2" hidden>
+                    <div class="col-11 col-md-6 col-lg-5" id="div-json2" hidden>
                         <label class="form-label fw-bolder">Json 2</label><!-- for="json2" -->
                         <input class="form-control mb-3" type="file" name="json2" id="json2" accept=".json, .js">
                     </div>
                 </div>
 
                 <div class="row justify-content-evenly mt-3">
-                    <div class="col-4" id="atributo1" hidden>
+                    <div class="col-10 col-md-5 col-lg-4" id="atributo1" hidden>
                         <div class="input-group">
                             <!-- <span class="input-group-text" for="atrib1">Atributo A</span> -->
                             <div class="form-floating">
@@ -63,7 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4" id="atributo2" hidden>
+                    <div class="col-10 col-md-5 col-lg-4" id="atributo2" hidden>
                         <div class="input-group">
                             <div class="form-floating">
                                 <input class="form-control" type="text" name="atrib2" id="atrib2">
@@ -74,7 +85,7 @@
                 </div>
 
                 <div class="row justify-content-evenly mt-3">
-                    <div class="col-9 mt-3" id="lista-archivos" hidden>
+                    <div class="col-11 col-md-10 col-lg-9 mt-3" id="lista-archivos" hidden>
                         <div class="input-group">
                             <div class="form-floating">
                                 <textarea class="form-control" name="list-arch" id="list-arch" style="height: 300px;"></textarea>
@@ -87,8 +98,8 @@
                 
                 
                 <div class="row justify-content-evenly mt-3">
-                    <button class="btn btn-primary col-6">Procesar</button>
-                    <!-- <button class="btn btn-secondary col-6" value="Entrar">Test</button> -->
+                    <button class="btn btn-primary col-10 col-md-8 col-lg-6">Procesar</button>
+                    <!-- <button class="btn btn-secondary col- col-md- col-lg-6" value="Entrar">Test</button> -->
                 </div>
             </form>
         </div>
@@ -234,6 +245,31 @@
             list_arch.setAttribute("required","true");
 
             instrucciones.removeAttribute("hidden");
+            instrucciones.innerHTML = "Función para generar un Json a partir de una lista de archivos<br>"+
+                                        "En el cuadro de texto escribir la lista de archivos<br>"+
+                                        "El resultado sera el Json de la lista ingresada.";
+            
+            // console.log(json1);
+            // console.log(json2);
+        });
+
+        opcion[5].addEventListener("change",(e) => {
+            div_json1.removeAttribute("hidden");
+            json1.setAttribute("required","true");
+
+            json2.removeAttribute("required");
+            div_json2.setAttribute("hidden","true");
+
+            atrib1.removeAttribute("required");
+            atributo1.setAttribute("hidden","true");
+
+            atrib2.removeAttribute("required");
+            atributo2.setAttribute("hidden","true");
+
+            list_arch.removeAttribute("required");
+            lista_archivos.setAttribute("hidden","true");
+
+            instrucciones.setAttribute("hidden","true");
             instrucciones.innerHTML = "Función para generar un Json a partir de una lista de archivos<br>"+
                                         "En el cuadro de texto escribir la lista de archivos<br>"+
                                         "El resultado sera el Json de la lista ingresada.";
