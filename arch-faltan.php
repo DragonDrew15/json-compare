@@ -16,7 +16,7 @@
     $jsonData2 = json_encode($prejson);
     // $jsonData2 = file_get_contents($_FILES["json2"]["tmp_name"]);
 
-    echo "<script> console.log('$jsonFinal'); </script>";
+    // echo "<script> console.log('$jsonFinal'); </script>";
     $myfile = fopen("Backup/".$fecha."/archivos_".$hora.".json", "w") or die("Unable to open file!");
     fwrite($myfile, $jsonFinal);
     fclose($myfile);
@@ -73,7 +73,7 @@
         }
     })
 
-    console.log("Arcgivos sin json");
+    console.log("Archivos sin Json");
     console.log(contador)
     console.log(jasonFinal)
 </script>
