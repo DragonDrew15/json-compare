@@ -43,9 +43,9 @@
                         <input type="radio" class="btn-check" name="radio-option" id="opcion5" autocomplete="off" value="gen-json">
                         <label class="btn btn-outline-dark w-100" for="opcion5">Generar Json</label>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-1" hidden>
-                        <input type="radio" class="btn-check" name="radio-option" id="opcion6" autocomplete="off" value="txt-to-json">
-                        <label class="btn btn-outline-dark w-100" for="opcion6">TXT to JSON</label>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-1">
+                        <input type="radio" class="btn-check" name="radio-option" id="opcion6" autocomplete="off" value="csv-to-json">
+                        <label class="btn btn-outline-dark w-100" for="opcion6">CSV to JSON</label>
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
                 <div class="row justify-content-evenly">
                     <div class="col-11 col-md-6 col-lg-5" id="div-json1" hidden>
                         <label class="form-label fw-bolder ">Json 1</label><!-- for="json1" -->
-                        <input class="form-control mb-3" type="file" name="json1" id="json1" accept=".json, .js">
+                        <input class="form-control mb-3" type="file" name="json1" id="json1" accept=".json,.js,.csv">
                     </div>
                     <div class="col-11 col-md-6 col-lg-5" id="div-json2" hidden>
                         <label class="form-label fw-bolder">Json 2</label><!-- for="json2" -->

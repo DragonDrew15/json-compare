@@ -6,8 +6,8 @@
 <!-- <textarea style="height: 300px;" class="form-control w-100" type="text" ><?php // echo str_replace("\n", "\r", $_test) ?></textarea> -->
 
 <?php
-    // $datos = explode("\n", str_replace("\r", "", $_test));
-    $datos = explode("\n", $_test);
+    $datos = explode("\n", str_replace("\r", "", $_test));
+    // $datos = explode("\n", $_test);
     $prejson = [];
     $cont = 1;
     foreach ($datos as $valor){

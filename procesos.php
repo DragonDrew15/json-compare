@@ -44,14 +44,13 @@ if (!file_exists($directorio)) {
     mkdir($directorio, 0777, true);
 }
 
-// $tipoArchivo = strtolower(pathinfo($archivo1, PATHINFO_EXTENSION));
 
 switch ($_POST['radio-option']) {
     case 'elem-faltan':
         include_once "elem-faltan.php";
         break;
 
-    case 'arch-faltan':
+        case 'arch-faltan':
         include_once "arch-faltan.php";
         break;
 
@@ -66,8 +65,8 @@ switch ($_POST['radio-option']) {
     case 'gen-json':
         include_once "gen-json.php";
         break;
-                
-    case 'txt-to-json':
+        
+    case 'csv-to-json':
         
         // $textData1 = file_get_contents($_FILES["json1"]["tmp_name"]);
 
@@ -84,9 +83,10 @@ switch ($_POST['radio-option']) {
                 $headers = $data;
             }else{
                 $fila = [];
-                array_push($fila,['id' => $row]);
+                // array_push($fila,'id' => $row);
+                $fila['id'] = $row;
                 for ($c=0; $c < count($data); $c++) {
-                    array_push($fila, [$headers[$c] => $data[$c]]);
+                    $fila[$headers[$c]] = $data[$c];
                 }
                 array_push($prejson, $fila);
             }
@@ -97,7 +97,7 @@ switch ($_POST['radio-option']) {
 
         echo "<script> console.log('$jsonFinal'); </script>";
 
-        $myfile = fopen("Backup/".$fecha."/cvs_".$hora.".json", "w") or die("Unable to open file!");
+        $myfile = fopen("Backup/".$fecha."/cvs-to-json_".$hora."-2.json", "w") or die("Unable to open file!");
         fwrite($myfile, $jsonFinal);
         fclose($myfile);
     }
@@ -116,7 +116,7 @@ switch ($_POST['radio-option']) {
         //     $cont++;
         // }
         // $jsonFinal = json_encode($prejson);
-
+        
         // echo "<script> console.log('$jsonFinal'); </script>";
         // $myfile = fopen("Backup/".$fecha."/lista_".$hora.".json", "w") or die("Unable to open file!");
         // fwrite($myfile, $jsonFinal);
@@ -124,21 +124,24 @@ switch ($_POST['radio-option']) {
     
         break;
     
-    default:
+        default:
         echo "<script> alert('No hay funcion definida'); </script>";
         break;
-}
-
-if (isset($_POST['backup-check'])) {
-
-    // echo "<script> alert('se hace backup'); </script>";
-
+    }
     
+    if (isset($_POST['backup-check'])) {
+        
+    // echo "<script> alert('se hace backup'); </script>";
+        
+    // $tipoArchivo = strtolower(pathinfo($_FILES["json1"]["name"], PATHINFO_EXTENSION));|||    
+    // echo "<script> console.log('$tipoArchivo'); </script>";
+        
     
     //Guardando archivos en la carperta
     
     if ($_FILES["json1"]["name"] != "") {
-        $new_name1 = $_POST['radio-option'] . "-" . $hora . "-1.json";
+        $tipoArchivo = strtolower(pathinfo($_FILES["json1"]["name"], PATHINFO_EXTENSION));
+        $new_name1 = $_POST['radio-option'] . "_" . $hora . "-1." . $tipoArchivo;
         $archivo1 = $directorio . basename($new_name1);
         if (move_uploaded_file($_FILES["json1"]["tmp_name"], $archivo1)) {
             echo "<script> console.log('Json1 guardado'); </script>";
@@ -146,7 +149,8 @@ if (isset($_POST['backup-check'])) {
     }
     
     if (isset($_FILES["json2"]["name"])) {
-        $new_name2 = $_POST['radio-option'] . "-" . $hora . "-2.json";
+        $tipoArchivo = strtolower(pathinfo($_FILES["json1"]["name"], PATHINFO_EXTENSION));
+        $new_name2 = $_POST['radio-option'] . "_" . $hora . "-2." . $tipoArchivo;
         $archivo2 = $directorio . basename($new_name2);
         if (move_uploaded_file($_FILES["json2"]["tmp_name"], $archivo2)) {
             echo "<script> console.log('Json2 guardado'); </script>";
@@ -178,10 +182,10 @@ if (isset($_POST['backup-check'])) {
         // $prejson = $prejson.'{"data":"'.$valor.'"},\n'; //
         // array_push($prejson,('"data" => ' + $valor));
         // $prejson = $prejson.']';
-
+        
         // $json_out = json_encode($prejson);
         // echo "<script>console.log(".json_encode($datos).");</script>";
-
+        
         
         // var_dump($jsonFile);
         // print_r($jsonFile);
